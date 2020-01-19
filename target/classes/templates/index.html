@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title123</title>
+
+<!--<link th:href="@{js/abc.js}" rel="stylesheet">-->   <!--引入外部js样式-->
+    <!--<script th:src=""></script>--><!--引入jquery-->
+
+</head>
+<body>
+
+<!--${}变量表达式 @{}url表达式  ht:xx 和 c:if 最大的不同是 前者是作为属性的-->
+
+<!--$和th连用，单写无意义!!!!-->
+<!--<span th:text="A">B</span> 有A无B，B不会显示-->
+<span th:text="${msg}"></span><br>
+<span th:text="${session.msg2}">2</span><br>
+<span th:text="${#dates.format(date,'yyyy-MM-dd')}">3</span><br>  <!--时间改格式-->
+<span th:text="${'this is a msg'+msg}"></span><br>
+
+<a th:href="@{hellowlj(ab='雷猴啊！')}">链接</a><br>
+
+<!--${pageContext.request.contextPath}?????-->
+
+
+<div th:switch="${count}">
+    <p th:case="1">switch值是1</p>
+    <p th:case="2">switch值是2</p>
+</div>
+
+<input type="button" th:value="按钮" th:id="hjb">
+
+<span th:if="${#lists.size(userlist)}>0">userlist长度>0</span><br>
+<span th:if="${not #lists.isEmpty(userlist)}">userlist不为null</span><br>
+<!--<span th:if="${#lists.size(userlist)}<0">userlist长度<0</span><br>-->    <!--只有满足条件才会显示-->
+<!--不知怎么回事上面的不满条件，下面的table也不现显示？？？？？-->
+
+
+
+
+<table class="providerTable" cellpadding="0" cellspacing="0" border="1px">
+
+
+    <tr  style="text-align:left;font-size:15px;background-color:rgb(203,205,254)">
+        <th width="150px" style="text-align: left;">用户昵称</th>
+        <th width="150px" >用户密码</th>
+        <th width="150px" >出生日期</th>
+        <th width="150px" >用户性别</th>
+        <th width="150px" >下标</th>
+    </tr>
+    <tr th:each="user:${userlist}" th:class="${userStat.odd}?'aa'" >  <!--给奇数行添加了class="aa"-->
+    <!--user后面跟 ',s' 下面是 s.index,要是不写就是user+Stat==userStat.index-->
+        <td th:value="${user.userName}"></td>
+        <td th:text="${user.userPassword}"></td>
+        <td th:text="${user.getBirthday()}"></td>
+        <td th:text="${user.gender}==1?'男' : '女'"></td>
+        <td th:text="${userStat.index+'-'+userStat.count+'-'+userStat.size+'-'+userStat.odd}"></td>  <!--下标-第几个-长度-->
+    </tr>
+</table><br>
+
+
+
+<div th:object="${user}">
+    <p th:text="*{userName}"></p>&nbsp;       <!--  两种书写效果一样-->
+    <p th:text="${user.userName}"></p>
+</div>
+
+
+
+<div th:replace="common_footer :: copy"></div>   <!--添加片段-->
+
+
+
+
+
+</body>
+</html>

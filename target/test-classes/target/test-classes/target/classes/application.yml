@@ -1,0 +1,17 @@
+server:  #内置tomcat tomcat部分
+  port: 9090   #端口号
+  servlet:
+    context-path: /zxy   #访问名
+spring: #数据源
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver  #链接驱动
+    url: jdbc:mysql://localhost:3306/smbms?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root    #用户名
+    password: root    #密码
+
+mybatis-plus:  #mybatis
+  type-aliases-package: cn.bdqn.springboot.entity    #配置别名
+  configuration:
+    auto-mapping-behavior: full   #映射级别
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  #打印日志显示sql
+  mapper-locations: classpath:mapper/*.xml  #加载配置文件 路径总与xxMapper.xml保持一致
